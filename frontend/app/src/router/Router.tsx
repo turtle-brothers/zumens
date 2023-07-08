@@ -17,7 +17,7 @@ export const Router: FC = memo(() => {
   return (
     <Routes>
       {/* <LoginUserProvider> */}
-        {/* <Route path="/" element={<Login />} /> */}
+        <Route path="/" element={<Login />} />
         <Route
           path="/home"
           element={

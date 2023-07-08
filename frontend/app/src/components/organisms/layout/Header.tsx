@@ -13,7 +13,8 @@ export const Header: FC = memo(() => {
 
   const onClickHome = () => navigate("/home");
   const onClickUserManagemaent = () => navigate("/home/user_management");
-  const onClickSetting = () => navigate("/home/setting");
+  const onClickUpload = () => navigate("/home/upload");
+
 
   return (
     <>
@@ -33,7 +34,7 @@ export const Header: FC = memo(() => {
           onClick={onClickHome}
         >
           <Heading as="h1" fontSize={{ base: "md", md: "lg" }}>
-            ユーザー管理アプリ
+            図面管理アプリ
           </Heading>
         </Flex>
         <Flex
@@ -45,7 +46,9 @@ export const Header: FC = memo(() => {
           <Box pr={4}>
             <Link onClick={onClickUserManagemaent}>ユーザー一覧</Link>
           </Box>
-          <Link onClick={onClickSetting}>設定</Link>
+          <Box pr={4}>
+            <Link onClick={onClickUpload}>図面登録</Link>
+          </Box>
         </Flex>
         <MenuIconButton onOpen={onOpen} />
       </Flex>
@@ -54,7 +57,7 @@ export const Header: FC = memo(() => {
         isOpen={isOpen}
         onClickHome={onClickHome}
         onClickUserManagement={onClickUserManagemaent}
-        onClickSetting={onClickSetting}
+        onClickUpload={onClickUpload}
       />
     </>
   );
