@@ -29,6 +29,11 @@ export const Home: FC = memo(() => {
 
   return (
     <>
+
+    {/* -------------------- */}
+    <MenuSearch />
+    {/* -------------------- */}
+
       {loading ? (
         <Center h="100vh">
           <Spinner />
