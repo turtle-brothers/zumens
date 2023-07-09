@@ -1,5 +1,5 @@
 import { memo, FC } from "react";
-import { Box, Stack, Image, Text } from "@chakra-ui/react";
+import { Box, Stack, Image, Text, Tag, HStack } from "@chakra-ui/react";
 
 type Props = {
   id: number;
@@ -13,8 +13,8 @@ export const UserCard: FC<Props> = memo((props) => {
   const { id, imageUrl, userName, fullName, onClick } = props;
   return (
     <Box
-      w="260px"
-      h="260px"
+      w="250px"
+      h="300px"
       bg="white"
       borderRadius="10px"
       shadow="md"
@@ -36,6 +36,11 @@ export const UserCard: FC<Props> = memo((props) => {
         <Text fontSize="sm" color="gray">
           {fullName}
         </Text>
+        <HStack spacing={4}>
+          <Tag size={'md'} key={'md'} variant='solid' colorScheme='teal'>
+          {fullName}
+          </Tag>
+        </HStack>
       </Stack>
     </Box>
   );

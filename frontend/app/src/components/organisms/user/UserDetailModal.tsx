@@ -1,7 +1,9 @@
 import { memo, FC } from "react";
 import {
+  Box,
   FormControl,
   FormLabel,
+  Image,
   Input,
   Modal,
   ModalBody,
@@ -35,6 +37,13 @@ export const UserDetailModal: FC<Props> = memo((props) => {
         <ModalCloseButton />
         <ModalBody mx={4}>
           <Stack spacing={4}>
+            <Image
+            boxSize="200px"
+            borderRadius="5px"
+            alt={user?.username}
+            m="auto"
+            src="https://source.unsplash.com/random"
+            />
             <FormControl>
               <FormLabel>名前</FormLabel>
               <Input value={user?.username} isReadOnly />
