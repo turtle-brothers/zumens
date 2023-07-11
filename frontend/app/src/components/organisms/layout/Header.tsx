@@ -12,8 +12,8 @@ export const Header: FC = memo(() => {
 
   const navigate = useNavigate();
 
+  const onClickRoute = () => navigate("/");
   const onClickHome = () => navigate("/home");
-  const onClickUserManagemaent = () => navigate("/home/user_management");
   const onClickUpload = () => navigate("/home/upload");
 
 
@@ -53,14 +53,14 @@ export const Header: FC = memo(() => {
           </Box> */}
         <Flex>
           <Box pr={4}>
-            <Link onClick={onClickUserManagemaent}>
+            <Link onClick={onClickUpload}>
               <Button leftIcon={<AddIcon />} colorScheme='blue' size='md'>
                 図面登録
               </Button>
             </Link>
           </Box>
           <Box pr={4}>
-            <Link onClick={onClickUpload}>
+            <Link onClick={onClickRoute}>
               <Button colorScheme='red' size='md'>
                 ログアウト
               </Button>
@@ -74,7 +74,7 @@ export const Header: FC = memo(() => {
         onClose={onClose}
         isOpen={isOpen}
         onClickHome={onClickHome}
-        onClickUserManagement={onClickUserManagemaent}
+        onClickRoute={onClickRoute}
         onClickUpload={onClickUpload}
       />
     </>
