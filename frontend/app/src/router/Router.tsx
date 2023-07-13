@@ -11,12 +11,12 @@ import { Page404 } from "../components/pages/Page404";
 
 import { HeaderLayout } from "../components/templates/HeaderLayout";
 import { FooterLayout } from "../components/templates/FooterLayout";
-// import { LoginUserProvider } from "../providers/LoginUserProvider";
+import { LoginUserProvider } from "../providers/LoginUserProvider";
 
 export const Router: FC = memo(() => {
   return (
-    <Routes>
-      {/* <LoginUserProvider> */}
+    <LoginUserProvider>
+      <Routes>
         <Route path="/" element={<Login />} />
         <Route
           path="/home"
@@ -78,7 +78,7 @@ export const Router: FC = memo(() => {
             </HeaderLayout>
           }
         />
-      {/* </LoginUserProvider> */}
-    </Routes>
+      </Routes>
+    </LoginUserProvider>
   );
 });
