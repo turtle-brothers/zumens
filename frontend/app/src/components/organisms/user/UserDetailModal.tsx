@@ -1,67 +1,121 @@
-import { memo, FC } from "react";
+import { ChangeEvent, memo, useEffect, useState, FC } from "react";
 import {
-  Box,
   FormControl,
   FormLabel,
-  Image,
   Input,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
+  ModalFooter,
   ModalHeader,
   ModalOverlay,
   Stack
 } from "@chakra-ui/react";
 
 import { User } from "../../../types/api/user";
+import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 
 type Props = {
+  // user: User | undefined;
   user: User | null;
   isOpen: boolean;
+  isAdmin?: boolean;
   onClose: () => void;
 };
 
 export const UserDetailModal: FC<Props> = memo((props) => {
-  const { user, isOpen, onClose } = props;
+  const { user, isOpen, onClose, isAdmin = false } = props;
+
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+
+  useEffect(() => {
+    setUsername(user?.username ?? "");
+    setName(user?.name ?? "");
+    setEmail(user?.email ?? "");
+    setPhone(user?.phone ?? "");
+  }, [user]);
+
+  const onChangeUsername = (e: ChangeEvent<HTMLInputElement>) =>
+    setUsername(e.target.value);
+  const onChangeName = (e: ChangeEvent<HTMLInputElement>) =>
+    setName(e.target.value);
+  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) =>
+    setEmail(e.target.value);
+  const onChangePhone = (e: ChangeEvent<HTMLInputElement>) =>
+    setPhone(e.target.value);
+
+  const onClickUpdate = () => {
+    console.log(username);
+    console.log(name);
+    console.log(email);
+    console.log(phone);
+  };
+
   return (
     <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      autoFocus={false}
-      // motionPreset="slideInBottom"
+    isOpen={isOpen}
+    onClose={onClose}
+    motionPreset="slideInBottom"
+    autoFocus={false}
     >
       <ModalOverlay />
-      <ModalContent pb={6}>
+      <ModalContent pb={2}>
         <ModalHeader>ユーザー詳細</ModalHeader>
         <ModalCloseButton />
-        <ModalBody mx={4}>
+        <ModalBody mx={6}>
           <Stack spacing={4}>
-            <Image
-            boxSize="200px"
-            borderRadius="5px"
-            alt={user?.username}
-            m="auto"
-            src="https://source.unsplash.com/random"
-            />
+          {/* <Image
+          boxSize="200px"
+          borderRadius="5px"
+          alt={user?.username}
+          m="auto"
+          src="https://source.unsplash.com/random"
+          /> */}
             <FormControl>
               <FormLabel>名前</FormLabel>
-              <Input value={user?.username} isReadOnly />
+              <Input
+                value={username}
+                isReadOnly={!isAdmin}
+                onChange={onChangeUsername}
+              />
             </FormControl>
             <FormControl>
               <FormLabel>フルネーム</FormLabel>
-              <Input value={user?.name} isReadOnly />
+              <Input
+                value={name}
+                isReadOnly={!isAdmin}
+                onChange={onChangeName}
+              />
             </FormControl>
             <FormControl>
               <FormLabel>MAIL</FormLabel>
-              <Input value={user?.email} isReadOnly />
+              <Input
+                type="email"
+                value={email}
+                isReadOnly={!isAdmin}
+                onChange={onChangeEmail}
+              />
             </FormControl>
             <FormControl>
               <FormLabel>TEL</FormLabel>
-              <Input value={user?.phone} isReadOnly />
+              <Input
+                type="tel"
+                value={phone}
+                isReadOnly={!isAdmin}
+                onChange={onChangePhone}
+              />
             </FormControl>
           </Stack>
         </ModalBody>
+        {isAdmin && (
+          <ModalFooter>
+            <PrimaryButton onClick={onClickUpdate}>更新</PrimaryButton>
+          </ModalFooter>
+        )}
       </ModalContent>
     </Modal>
   );

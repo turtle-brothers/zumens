@@ -9,6 +9,7 @@ import { memo, FC, useEffect, useCallback } from "react";
 
 import { useAllUsers } from "../../hooks/useAllUsers";
 import { useSelectUser } from "../../hooks/useSelectUser";
+import { useLoginUser} from "../../providers/LoginUserProvider";
 import { UserCard } from "../organisms/user/UserCard";
 import { UserDetailModal } from "../organisms/user/UserDetailModal";
 import { MenuSearch } from "../molecules/MenuSearch";
@@ -17,6 +18,7 @@ export const Home: FC = memo(() => {
   const { getUsers, users, loading } = useAllUsers();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { onSlectUser, selectedUser } = useSelectUser();
+  const { LoginUser } = useLoginUser();
 
   useEffect(() => getUsers, [getUsers]);
 
@@ -54,7 +56,7 @@ export const Home: FC = memo(() => {
           ))}
         </Wrap>
       )}
-      <UserDetailModal user={selectedUser} isOpen={isOpen} onClose={onClose} />
+      <UserDetailModal user={selectedUser} isOpen={isOpen} isAdmin={LoginUser?.isAdmin} onClose={onClose} />
     </>
   );
 });
