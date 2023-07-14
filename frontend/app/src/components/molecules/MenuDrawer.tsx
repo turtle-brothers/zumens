@@ -1,11 +1,7 @@
-import { memo, FC } from "react";
-import {
-  Button,
-  Drawer,
-  DrawerBody,
-  DrawerContent,
-  DrawerOverlay
-} from "@chakra-ui/react";
+import React from 'react';
+
+import { memo, FC } from 'react';
+import { Button, Drawer, DrawerBody, DrawerContent, DrawerOverlay } from '@chakra-ui/react';
 
 type Props = {
   onClose: () => void;
@@ -16,13 +12,7 @@ type Props = {
 };
 
 export const MenuDrawer: FC<Props> = memo((props) => {
-  const {
-    onClose,
-    isOpen,
-    onClickHome,
-    onClickRoute,
-    onClickUpload
-  } = props;
+  const { onClose, isOpen, onClickHome, onClickRoute, onClickUpload } = props;
   return (
     <Drawer placement="left" size="xs" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay>

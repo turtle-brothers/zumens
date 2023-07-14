@@ -1,36 +1,24 @@
-import {
-    createContext,
-    Dispatch,
-    ReactNode,
-    SetStateAction,
-    useContext,
-    useState
-  } from "react";
+import React from 'react';
 
-  import { User } from "../types/api/user";
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react';
 
-  type LoginUser = User & { isAdmin: boolean };
+import { User } from '../types/api/user';
 
-  type LoginUserContextType = {
-    LoginUser: LoginUser | null;
-    setLoginUser: Dispatch<SetStateAction<LoginUser | null>>;
-  };
+type LoginUser = User & { isAdmin: boolean };
 
-  const LoginUserContext = createContext<LoginUserContextType>(
-    {} as LoginUserContextType
-  );
+type LoginUserContextType = {
+  LoginUser: LoginUser | null;
+  setLoginUser: Dispatch<SetStateAction<LoginUser | null>>;
+};
 
-  // ログインユーザー情報を保持するcontext
-  export const LoginUserProvider = (props: { children: ReactNode }) => {
-    const { children } = props;
-    const [LoginUser, setLoginUser] = useState<LoginUser | null>(null);
+const LoginUserContext = createContext<LoginUserContextType>({} as LoginUserContextType);
 
-    return (
-      <LoginUserContext.Provider value={{ LoginUser, setLoginUser }}>
-        {children}
-      </LoginUserContext.Provider>
-    );
-  };
+// ログインユーザー情報を保持するcontext
+export const LoginUserProvider = (props: { children: ReactNode }) => {
+  const { children } = props;
+  const [LoginUser, setLoginUser] = useState<LoginUser | null>(null);
 
-  export const useLoginUser = (): LoginUserContextType =>
-  useContext(LoginUserContext);
+  return <LoginUserContext.Provider value={{ LoginUser, setLoginUser }}>{children}</LoginUserContext.Provider>;
+};
+
+export const useLoginUser = (): LoginUserContextType => useContext(LoginUserContext);

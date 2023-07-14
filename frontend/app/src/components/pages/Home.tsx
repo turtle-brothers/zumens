@@ -1,18 +1,14 @@
-import {
-  Center,
-  Spinner,
-  useDisclosure,
-  Wrap,
-  WrapItem
-} from "@chakra-ui/react";
-import { memo, FC, useEffect, useCallback } from "react";
+import React from 'react';
 
-import { useAllUsers } from "../../hooks/useAllUsers";
-import { useSelectUser } from "../../hooks/useSelectUser";
-import { useLoginUser} from "../../providers/LoginUserProvider";
-import { UserCard } from "../organisms/user/UserCard";
-import { UserDetailModal } from "../organisms/user/UserDetailModal";
-import { MenuSearch } from "../molecules/MenuSearch";
+import { Center, Spinner, useDisclosure, Wrap, WrapItem } from '@chakra-ui/react';
+import { memo, FC, useEffect, useCallback } from 'react';
+
+import { useAllUsers } from '../../hooks/useAllUsers';
+import { useSelectUser } from '../../hooks/useSelectUser';
+import { useLoginUser } from '../../providers/LoginUserProvider';
+import { UserCard } from '../organisms/user/UserCard';
+import { UserDetailModal } from '../organisms/user/UserDetailModal';
+import { MenuSearch } from '../molecules/MenuSearch';
 
 export const Home: FC = memo(() => {
   const { getUsers, users, loading } = useAllUsers();
@@ -31,10 +27,9 @@ export const Home: FC = memo(() => {
 
   return (
     <>
-
-    {/* -------------------- */}
-    <MenuSearch />
-    {/* -------------------- */}
+      {/* -------------------- */}
+      <MenuSearch />
+      {/* -------------------- */}
 
       {loading ? (
         <Center h="100vh">

@@ -1,5 +1,9 @@
-import { InputGroup, InputLeftElement, Input, BoxProps } from "@chakra-ui/react";
-import { FC, ReactElement } from "react";
+/* eslint-disable react/display-name */
+
+import React from 'react';
+
+import { InputGroup, InputLeftElement, Input, BoxProps } from '@chakra-ui/react';
+import { FC, ReactElement } from 'react';
 
 interface Props extends BoxProps {
   icon?: ReactElement;
@@ -7,12 +11,10 @@ interface Props extends BoxProps {
   placeholder: string;
 }
 
-export const MenuInput: FC<Props> = ({icon, type, placeholder, ...props }) => {
+export const MenuInput: FC<Props> = ({ icon, type, placeholder, ...props }) => {
   return (
     <InputGroup {...props}>
-      <InputLeftElement pointerEvents='none'>
-        {icon}
-      </InputLeftElement>
+      <InputLeftElement pointerEvents="none">{icon}</InputLeftElement>
       <Input type={type} placeholder={placeholder} />
     </InputGroup>
   );

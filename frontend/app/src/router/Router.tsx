@@ -1,18 +1,20 @@
-import { memo, FC } from "react";
-import { Routes, Route } from "react-router-dom";
+import React from 'react';
 
-import { Home } from "../components/pages/Home";
-import { Login } from "../components/pages/Login";
-import { UserManagement } from "../components/pages/UserManagement";
-import { Upload } from "../components/pages/Upload";
-import { PrivacyPolicy } from "../components/pages/PrivacyPolicy";
-import { TermsOfUse } from "../components/pages/TermsOfUse";
-import { Page404 } from "../components/pages/Page404";
+import { memo, FC } from 'react';
+import { Routes, Route } from 'react-router-dom';
 
-import { HeaderLayout } from "../components/templates/HeaderLayout";
-import { FooterLayout } from "../components/templates/FooterLayout";
-import { LoginUserProvider } from "../providers/LoginUserProvider";
-import { SignUp } from "../components/pages/Signup";
+import { Home } from '../components/pages/Home';
+import { Login } from '../components/pages/Login';
+// import { UserManagement } from "../components/pages/UserManagement";
+import { Upload } from '../components/pages/Upload';
+import { PrivacyPolicy } from '../components/pages/PrivacyPolicy';
+import { TermsOfUse } from '../components/pages/TermsOfUse';
+import { Page404 } from '../components/pages/Page404';
+
+import { HeaderLayout } from '../components/templates/HeaderLayout';
+import { FooterLayout } from '../components/templates/FooterLayout';
+import { LoginUserProvider } from '../providers/LoginUserProvider';
+import { SignUp } from '../components/pages/Signup';
 
 export const Router: FC = memo(() => {
   return (
@@ -24,12 +26,12 @@ export const Router: FC = memo(() => {
           element={
             <HeaderLayout>
               <FooterLayout>
-                 <Home />
+                <Home />
               </FooterLayout>
             </HeaderLayout>
           }
         />
-        <Route
+        {/* <Route
           path="/home/user_management"
           element={
             <HeaderLayout>
@@ -38,7 +40,7 @@ export const Router: FC = memo(() => {
               </FooterLayout>
             </HeaderLayout>
           }
-        />
+        /> */}
         <Route
           path="/home/upload"
           element={
@@ -49,30 +51,15 @@ export const Router: FC = memo(() => {
             </HeaderLayout>
           }
         />
-        <Route
-          path="/home/privacy_policy"
-          element={
-            <PrivacyPolicy />
-          }
-        />
-        <Route
-          path="/home/terms_of_use"
-          element={
-            <TermsOfUse />
-          }
-        />
-        <Route
-          path="/home/signup"
-          element={
-            <SignUp />
-          }
-        />
+        <Route path="/home/privacy_policy" element={<PrivacyPolicy />} />
+        <Route path="/home/terms_of_use" element={<TermsOfUse />} />
+        <Route path="/home/signup" element={<SignUp />} />
         <Route
           path="*"
           element={
             <HeaderLayout>
               <FooterLayout>
-              <Page404 />
+                <Page404 />
               </FooterLayout>
             </HeaderLayout>
           }
