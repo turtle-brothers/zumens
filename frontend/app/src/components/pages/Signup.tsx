@@ -1,46 +1,44 @@
-import { memo, FC, useState, ChangeEvent } from "react";
-import { Box, Checkbox, Divider, Flex, Heading, Input, Stack, Text } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
 
-import { PrimaryButton } from "../atoms/button/PrimaryButton";
-import { useRegister } from "../../hooks/useRegister";
+import { memo, FC, useState, ChangeEvent } from 'react';
+import { Box, Checkbox, Divider, Flex, Heading, Input, Stack, Text } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
+
+import { PrimaryButton } from '../atoms/button/PrimaryButton';
+import { useRegister } from '../../hooks/useRegister';
 
 export const SignUp: FC = memo(() => {
   const { signup, loading } = useRegister();
-  const [userId, setuserId] = useState("");
-  const [password, setPassword] = useState("");
+  const [userId, setuserId] = useState('');
+  const [password, setPassword] = useState('');
   const [privacyPolicy, setPrivacyPolicy] = useState(false);
   const [termsOfUse, setTermsOfUse] = useState(false);
 
+  const onChangeUserId = (event: ChangeEvent<HTMLInputElement>) => setuserId(event.target.value);
 
-  const onChangeUserId = (event: ChangeEvent<HTMLInputElement>) =>
-    setuserId(event.target.value);
-
-  const onChangePassword = (event: ChangeEvent<HTMLInputElement>) =>
-    setPassword(event.target.value);
+  const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => setPassword(event.target.value);
 
   const onClickSignUp = () => {
-    if (userId !== "" && password !== "" && privacyPolicy && termsOfUse) {
+    if (userId !== '' && password !== '' && privacyPolicy && termsOfUse) {
       signup(userId, password);
     }
   };
-
 
   const navigate = useNavigate();
 
   const onClickPolicy = () => {
     setPrivacyPolicy(!privacyPolicy);
-    navigate("/home/privacy_policy");
-  }
+    navigate('/home/privacy_policy');
+  };
 
   const onClickTerms = () => {
     setTermsOfUse(!termsOfUse);
-    navigate("/home/terms_of_use");
-  }
+    navigate('/home/terms_of_use');
+  };
 
   const onClickLogin = () => {
-    navigate("/");
-  }
+    navigate('/');
+  };
 
   return (
     <Flex align="center" justify="center" height="100vh">
@@ -50,17 +48,8 @@ export const SignUp: FC = memo(() => {
         </Heading>
         <Divider my={4} />
         <Stack spacing={3} py={4} px={10}>
-          <Input
-            placeholder="ユーザーID"
-            value={userId}
-            onChange={onChangeUserId}
-          />
-          <Input
-            placeholder="パスワード"
-            type="password"
-            value={password}
-            onChange={onChangePassword}
-          />
+          <Input placeholder="ユーザーID" value={userId} onChange={onChangeUserId} />
+          <Input placeholder="パスワード" type="password" value={password} onChange={onChangePassword} />
 
           <Checkbox colorScheme="green" isChecked={privacyPolicy} onChange={() => setPrivacyPolicy(!privacyPolicy)}>
             <Text as="span" color="blue.500" onClick={onClickPolicy} cursor="pointer">
@@ -77,16 +66,13 @@ export const SignUp: FC = memo(() => {
             bgColor="orange.300"
             textColor="white"
             hoverOpacity={0.8}
-            disabled={userId === "" || password === "" || !privacyPolicy || !termsOfUse}
+            disabled={userId === '' || password === '' || !privacyPolicy || !termsOfUse}
             loading={loading}
             onClick={onClickSignUp}
           >
             登録する
           </PrimaryButton>
-          <PrimaryButton
-            loading={loading}
-            onClick={onClickLogin}
-          >
+          <PrimaryButton loading={loading} onClick={onClickLogin}>
             ログインする
           </PrimaryButton>
         </Stack>

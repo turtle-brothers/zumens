@@ -1,5 +1,11 @@
-import { memo, FC } from "react";
+import React from 'react';
+
+import { memo, FC } from 'react';
 
 export const Upload: FC = memo(() => {
-  return <p>アップロードページです</p>;
+  return (
+    <>
+      <p>アップロードページです</p>;
+    </>
+  );
 });

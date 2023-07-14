@@ -1,5 +1,9 @@
-import { memo, FC, ReactNode } from "react";
-import { Button } from "@chakra-ui/react";
+/* eslint-disable react/display-name */
+
+import React from 'react';
+
+import { memo, FC, ReactNode } from 'react';
+import { Button } from '@chakra-ui/react';
 
 type Props = {
   children: ReactNode;
@@ -17,20 +21,13 @@ export const PrimaryButton: FC<Props> = memo((props) => {
     disabled = false,
     loading = false,
     onClick,
-    bgColor = "teal.400", //デフォルト値設定
-    textColor = "white", //デフォルト値設定
-    hoverOpacity = 0.8 //デフォルト値設定
+    bgColor = 'teal.400', //デフォルト値設定
+    textColor = 'white', //デフォルト値設定
+    hoverOpacity = 0.8, //デフォルト値設定
   } = props;
 
   return (
-    <Button
-      bg={bgColor}
-      color={textColor}
-      _hover={{ opacity: hoverOpacity }}
-      disabled={disabled || loading}
-      isLoading={loading}
-      onClick={onClick}
-    >
+    <Button bg={bgColor} color={textColor} _hover={{ opacity: hoverOpacity }} disabled={disabled || loading} isLoading={loading} onClick={onClick}>
       {children}
     </Button>
   );

@@ -1,21 +1,21 @@
-/**eslint-disable react-hooks/exhaustive-deps */
-import { memo, FC } from "react";
-import { Box, Button, Flex, Heading, Link, useDisclosure } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
 
-import { MenuIconButton } from "../../atoms/button/MenuIconButton";
-import { MenuDrawer } from "../../molecules/MenuDrawer";
-import { AddIcon } from "@chakra-ui/icons";
+import { memo, FC } from 'react';
+import { Box, Button, Flex, Heading, Link, useDisclosure } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
+
+import { MenuIconButton } from '../../atoms/button/MenuIconButton';
+import { MenuDrawer } from '../../molecules/MenuDrawer';
+import { AddIcon } from '@chakra-ui/icons';
 
 export const Header: FC = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const navigate = useNavigate();
 
-  const onClickRoute = () => navigate("/");
-  const onClickHome = () => navigate("/home");
-  const onClickUpload = () => navigate("/home/upload");
-
+  const onClickRoute = () => navigate('/');
+  const onClickHome = () => navigate('/home');
+  const onClickUpload = () => navigate('/home/upload');
 
   return (
     <>
@@ -28,14 +28,8 @@ export const Header: FC = memo(() => {
         padding={{ base: 1, md: 3 }}
         // padding={{ base: 3, md: 5 }}
       >
-        <Flex
-          align="center"
-          as="a"
-          mr={8}
-          _hover={{ cursor: "pointer" }}
-          onClick={onClickHome}
-        >
-          <Heading as="h1" fontSize={{ base: "md", md: "lg" }}>
+        <Flex align="center" as="a" mr={8} _hover={{ cursor: 'pointer' }} onClick={onClickHome}>
+          <Heading as="h1" fontSize={{ base: 'md', md: 'lg' }}>
             図面管理アプリ
           </Heading>
         </Flex>
@@ -45,7 +39,7 @@ export const Header: FC = memo(() => {
           flexGrow={2}
           display={{ base: "none", md: "flex" }}
         > */}
-          {/* <Box pr={4}>
+        {/* <Box pr={4}>
             <Link onClick={onClickUserManagemaent}>ユーザー一覧</Link>
           </Box>
           <Box pr={4}>
@@ -54,29 +48,23 @@ export const Header: FC = memo(() => {
         <Flex>
           <Box pr={4}>
             <Link onClick={onClickUpload}>
-              <Button leftIcon={<AddIcon />} colorScheme='blue' size='md'>
+              <Button leftIcon={<AddIcon />} colorScheme="blue" size="md">
                 図面登録
               </Button>
             </Link>
           </Box>
           <Box pr={4}>
             <Link onClick={onClickRoute}>
-              <Button colorScheme='red' size='md'>
+              <Button colorScheme="red" size="md">
                 ログアウト
               </Button>
             </Link>
           </Box>
         </Flex>
         <MenuIconButton onOpen={onOpen} />
-      {/* </Flex> */}
+        {/* </Flex> */}
       </Flex>
-      <MenuDrawer
-        onClose={onClose}
-        isOpen={isOpen}
-        onClickHome={onClickHome}
-        onClickRoute={onClickRoute}
-        onClickUpload={onClickUpload}
-      />
+      <MenuDrawer onClose={onClose} isOpen={isOpen} onClickHome={onClickHome} onClickRoute={onClickRoute} onClickUpload={onClickUpload} />
     </>
   );
 });
