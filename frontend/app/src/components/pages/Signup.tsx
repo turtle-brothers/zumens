@@ -3,14 +3,15 @@ import { Box, Checkbox, Divider, Flex, Heading, Input, Stack, Text } from "@chak
 import { useNavigate } from "react-router-dom";
 
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
-import { useAuth } from "../../hooks/useAuth";
+import { useRegister } from "../../hooks/useRegister";
 
-export const Login: FC = memo(() => {
-  const { login, loading } = useAuth();
+export const SignUp: FC = memo(() => {
+  const { signup, loading } = useRegister();
   const [userId, setuserId] = useState("");
   const [password, setPassword] = useState("");
   const [privacyPolicy, setPrivacyPolicy] = useState(false);
   const [termsOfUse, setTermsOfUse] = useState(false);
+
 
   const onChangeUserId = (event: ChangeEvent<HTMLInputElement>) =>
     setuserId(event.target.value);
@@ -18,11 +19,9 @@ export const Login: FC = memo(() => {
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>) =>
     setPassword(event.target.value);
 
-  // const onClickLogin = () => login(userId, password);
-
-  const onClickLogin = () => {
+  const onClickSignUp = () => {
     if (userId !== "" && password !== "" && privacyPolicy && termsOfUse) {
-      login(userId, password);
+      signup(userId, password);
     }
   };
 
@@ -39,15 +38,15 @@ export const Login: FC = memo(() => {
     navigate("/home/terms_of_use");
   }
 
-  const onClickSignUp = () => {
-    navigate("/home/signup");
+  const onClickLogin = () => {
+    navigate("/");
   }
 
   return (
     <Flex align="center" justify="center" height="100vh">
       <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
         <Heading as="h1" size="lg" textAlign="center">
-          図面管理アプリ
+          新規登録
         </Heading>
         <Divider my={4} />
         <Stack spacing={3} py={4} px={10}>
@@ -62,6 +61,7 @@ export const Login: FC = memo(() => {
             value={password}
             onChange={onChangePassword}
           />
+
           <Checkbox colorScheme="green" isChecked={privacyPolicy} onChange={() => setPrivacyPolicy(!privacyPolicy)}>
             <Text as="span" color="blue.500" onClick={onClickPolicy} cursor="pointer">
               プライバシーポリシーに同意する
@@ -74,21 +74,20 @@ export const Login: FC = memo(() => {
           </Checkbox>
 
           <PrimaryButton
-            disabled={userId === "" || password === "" || !privacyPolicy || !termsOfUse}
-            loading={loading}
-            onClick={onClickLogin}
-          >
-            ログイン
-          </PrimaryButton>
-
-          <PrimaryButton
             bgColor="orange.300"
             textColor="white"
             hoverOpacity={0.8}
+            disabled={userId === "" || password === "" || !privacyPolicy || !termsOfUse}
             loading={loading}
             onClick={onClickSignUp}
           >
-            新規登録
+            登録する
+          </PrimaryButton>
+          <PrimaryButton
+            loading={loading}
+            onClick={onClickLogin}
+          >
+            ログインする
           </PrimaryButton>
         </Stack>
       </Box>
