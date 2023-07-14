@@ -6,15 +6,27 @@ type Props = {
   disabled?: boolean;
   loading?: boolean;
   onClick: () => void;
+  bgColor?: string;
+  textColor?: string;
+  hoverOpacity?: number;
 };
 
 export const PrimaryButton: FC<Props> = memo((props) => {
-  const { children, disabled = false, loading = false, onClick } = props;
+  const {
+    children,
+    disabled = false,
+    loading = false,
+    onClick,
+    bgColor = "teal.400", //デフォルト値設定
+    textColor = "white", //デフォルト値設定
+    hoverOpacity = 0.8 //デフォルト値設定
+  } = props;
+
   return (
     <Button
-      bg="teal.400"
-      color="white"
-      _hover={{ opacity: 0.8 }}
+      bg={bgColor}
+      color={textColor}
+      _hover={{ opacity: hoverOpacity }}
       disabled={disabled || loading}
       isLoading={loading}
       onClick={onClick}

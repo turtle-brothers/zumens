@@ -15,7 +15,8 @@ export const useAuth = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const login = useCallback((id: string) => {
+  // ログイン処理
+  const login = useCallback((id: string, password: string) => {
     setLoading(true);
     axios
       .get<User>(`https://jsonplaceholder.typicode.com/users/${id}`)

@@ -12,6 +12,7 @@ import { Page404 } from "../components/pages/Page404";
 import { HeaderLayout } from "../components/templates/HeaderLayout";
 import { FooterLayout } from "../components/templates/FooterLayout";
 import { LoginUserProvider } from "../providers/LoginUserProvider";
+import { SignUp } from "../components/pages/Signup";
 
 export const Router: FC = memo(() => {
   return (
@@ -51,21 +52,19 @@ export const Router: FC = memo(() => {
         <Route
           path="/home/privacy_policy"
           element={
-            <HeaderLayout>
-              <FooterLayout>
-                <PrivacyPolicy />
-              </FooterLayout>
-            </HeaderLayout>
+            <PrivacyPolicy />
           }
         />
         <Route
           path="/home/terms_of_use"
           element={
-            <HeaderLayout>
-              <FooterLayout>
-                <TermsOfUse />
-              </FooterLayout>
-            </HeaderLayout>
+            <TermsOfUse />
+          }
+        />
+        <Route
+          path="/home/signup"
+          element={
+            <SignUp />
           }
         />
         <Route
