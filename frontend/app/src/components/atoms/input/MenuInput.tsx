@@ -1,9 +1,5 @@
-/* eslint-disable react/display-name */
-
-import React from 'react';
-
 import { InputGroup, InputLeftElement, Input, BoxProps } from '@chakra-ui/react';
-import { FC, ReactElement } from 'react';
+import React, { FC, ReactElement } from 'react';
 
 interface Props extends BoxProps {
   icon?: ReactElement;

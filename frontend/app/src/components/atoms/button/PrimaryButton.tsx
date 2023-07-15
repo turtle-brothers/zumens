@@ -1,8 +1,4 @@
-/* eslint-disable react/display-name */
-
-import React from 'react';
-
-import { memo, FC, ReactNode } from 'react';
+import React, { memo, FC, ReactNode } from 'react';
 import { Button } from '@chakra-ui/react';
 
 type Props = {

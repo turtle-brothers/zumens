@@ -1,7 +1,5 @@
-import React from 'react';
-
+import React, { memo, FC, useEffect, useCallback } from 'react';
 import { Center, Spinner, useDisclosure, Wrap, WrapItem } from '@chakra-ui/react';
-import { memo, FC, useEffect, useCallback } from 'react';
 
 import { useAllUsers } from '../../hooks/useAllUsers';
 import { useSelectUser } from '../../hooks/useSelectUser';

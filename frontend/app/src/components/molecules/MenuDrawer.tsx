@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { memo, FC } from 'react';
+import React, { memo, FC } from 'react';
 import { Button, Drawer, DrawerBody, DrawerContent, DrawerOverlay } from '@chakra-ui/react';
 
 type Props = {

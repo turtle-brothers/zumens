@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { memo, FC } from 'react';
+import React, { memo, FC } from 'react';
 import { Stack, Box, Flex, Link } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 

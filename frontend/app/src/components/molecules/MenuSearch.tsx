@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { memo, FC } from 'react';
+import React, { memo, FC } from 'react';
 import { Flex, Box, Heading } from '@chakra-ui/react';
 import { EmailIcon, InfoIcon, PhoneIcon } from '@chakra-ui/icons';
 

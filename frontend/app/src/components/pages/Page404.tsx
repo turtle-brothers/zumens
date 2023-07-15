@@ -1,9 +1,7 @@
-import React from 'react';
-
+import React, { memo, FC } from 'react';
 import { Box, Heading, Text } from '@chakra-ui/react';
-import { memo, FC } from 'react';
 
-import { GoToHomeButton } from '../atoms/button/GoToHomeButton';
+import { BackButton } from '../atoms/button/BackButton';
 
 export const Page404: FC = memo(() => {
   return (
@@ -20,8 +18,8 @@ export const Page404: FC = memo(() => {
           お探しのページは存在しないようです。
         </Text>
 
-        {/* ホームへ戻る */}
-        <GoToHomeButton />
+        {/* 戻る */}
+        <BackButton />
       </Box>
     </>
   );

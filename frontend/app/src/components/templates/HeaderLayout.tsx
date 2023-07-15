@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { memo, ReactNode, FC } from 'react';
+import React, { memo, ReactNode, FC } from 'react';
 
 import { Header } from '../organisms/layout/Header';
 
