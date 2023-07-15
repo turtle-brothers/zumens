@@ -1,6 +1,6 @@
 import React, { memo, FC } from 'react';
 
-export const Upload: FC = memo(() => {
+export const UserManagement: FC = memo(() => {
   return (
     <>
       <p>ユーザー管理ページです</p>;

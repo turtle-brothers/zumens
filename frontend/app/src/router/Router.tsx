@@ -3,7 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 
 import { Home } from '../components/pages/Home';
 import { Login } from '../components/pages/Login';
-// import { UserManagement } from "../components/pages/UserManagement";
+import { SignUp } from '../components/pages/Signup';
+import { UserManagement } from '../components/pages/UserManagement';
 import { Upload } from '../components/pages/Upload';
 import { PrivacyPolicy } from '../components/pages/PrivacyPolicy';
 import { TermsOfUse } from '../components/pages/TermsOfUse';
@@ -12,7 +13,6 @@ import { Page404 } from '../components/pages/Page404';
 import { HeaderLayout } from '../components/templates/HeaderLayout';
 import { FooterLayout } from '../components/templates/FooterLayout';
 import { LoginUserProvider } from '../providers/LoginUserProvider';
-import { SignUp } from '../components/pages/Signup';
 
 export const Router: FC = memo(() => {
   return (
@@ -29,7 +29,7 @@ export const Router: FC = memo(() => {
             </HeaderLayout>
           }
         />
-        {/* <Route
+        <Route
           path="/home/user_management"
           element={
             <HeaderLayout>
@@ -38,7 +38,7 @@ export const Router: FC = memo(() => {
               </FooterLayout>
             </HeaderLayout>
           }
-        /> */}
+        />
         <Route
           path="/home/upload"
           element={

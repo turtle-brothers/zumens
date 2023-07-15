@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Home } from '../components/pages/Home';
-// import { UserManagement } from '../components/pages/UserManagement';
+import { UserManagement } from '../components/pages/UserManagement';
 import { Upload } from '../components/pages/Upload';
 import { PrivacyPolicy } from '../components/pages/PrivacyPolicy';
 import { TermsOfUse } from '../components/pages/TermsOfUse';
@@ -13,11 +13,11 @@ export const homeRoutes = [
     exact: true,
     children: <Home />,
   },
-  // {
-  //   path: '/user_management',
-  //   exact: false,
-  //   children: <UserManagement />,
-  // },
+  {
+    path: '/user_management',
+    exact: false,
+    children: <UserManagement />,
+  },
   {
     path: '/upload',
     exact: false,
