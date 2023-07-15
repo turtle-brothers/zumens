@@ -1,11 +1,7 @@
-/* eslint-disable react/display-name */
-
-import React from 'react';
-
+import React, { memo, FC } from 'react';
 import { Button, Link } from '@chakra-ui/react';
-import { memo, FC } from 'react';
 
-export const GoToHomeButton: FC = memo(() => {
+export const BackButton: FC = memo(() => {
   const onClickHome = () => window.history.back();
 
   return (

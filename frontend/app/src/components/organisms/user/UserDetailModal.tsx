@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { ChangeEvent, memo, useEffect, useState, FC } from 'react';
+import React, { ChangeEvent, memo, useEffect, useState, FC } from 'react';
 import {
   FormControl,
   FormLabel,

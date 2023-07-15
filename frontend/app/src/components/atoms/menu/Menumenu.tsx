@@ -1,8 +1,6 @@
-import React from 'react';
-
+import React, { FC } from 'react';
 import { Menu, MenuButton, Button, MenuList, MenuItem, BoxProps } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import { FC } from 'react';
 
 interface Props extends BoxProps {
   menuTitle: string;

@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { memo, FC } from 'react';
+import React, { memo, FC } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import { Home } from '../components/pages/Home';
