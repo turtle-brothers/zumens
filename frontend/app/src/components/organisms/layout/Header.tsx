@@ -4,16 +4,19 @@ import { useNavigate } from 'react-router-dom';
 
 import { MenuIconButton } from '../../atoms/button/MenuIconButton';
 import { MenuDrawer } from '../../molecules/MenuDrawer';
+import { useLoginUser } from '../../../providers/LoginUserProvider';
 import { AddIcon } from '@chakra-ui/icons';
 
 export const Header: FC = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { LoginUser } = useLoginUser();
 
   const navigate = useNavigate();
 
   const onClickRoute = () => navigate('/');
   const onClickHome = () => navigate('/home');
   const onClickUpload = () => navigate('/home/upload');
+  const onClickUserManagement = () => navigate('/home/user_management');
 
   return (
     <>
@@ -31,19 +34,16 @@ export const Header: FC = memo(() => {
             図面管理アプリ
           </Heading>
         </Flex>
-        {/* <Flex
-          align="center"
-          fontSize="sm"
-          flexGrow={2}
-          display={{ base: "none", md: "flex" }}
-        > */}
-        {/* <Box pr={4}>
-            <Link onClick={onClickUserManagemaent}>ユーザー一覧</Link>
-          </Box>
-          <Box pr={4}>
-            <Link onClick={onClickUpload}>図面登録</Link>
-          </Box> */}
         <Flex>
+          {LoginUser?.isAdmin && (
+            <Box pr={4}>
+              <Link onClick={onClickUserManagement}>
+                <Button colorScheme="orange" size="md">
+                  ユーザー管理
+                </Button>
+              </Link>
+            </Box>
+          )}
           <Box pr={4}>
             <Link onClick={onClickUpload}>
               <Button leftIcon={<AddIcon />} colorScheme="blue" size="md">
