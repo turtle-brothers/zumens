@@ -1,6 +1,6 @@
 import React, { memo, FC } from 'react';
 import { Box, Button, Flex, Heading, Link, useDisclosure } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { MenuIconButton } from '../../atoms/button/MenuIconButton';
 import { MenuDrawer } from '../../molecules/MenuDrawer';
@@ -12,11 +12,17 @@ export const Header: FC = memo(() => {
   const { LoginUser } = useLoginUser();
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const onClickRoute = () => navigate('/');
   const onClickHome = () => navigate('/home');
   const onClickUpload = () => navigate('/home/upload');
   const onClickUserManagement = () => navigate('/home/user_management');
+  const onClickSignUp = () => navigate('/home/signup');
+
+  const isUserManagementPage = location.pathname === '/home/user_management';
+
+  console.log('isUserManagementPage');
 
   return (
     <>
@@ -35,7 +41,7 @@ export const Header: FC = memo(() => {
           </Heading>
         </Flex>
         <Flex>
-          {LoginUser?.isAdmin && (
+          {/* {LoginUser?.isAdmin && (
             <Box pr={4}>
               <Link onClick={onClickUserManagement}>
                 <Button colorScheme="orange" size="md">
@@ -43,13 +49,32 @@ export const Header: FC = memo(() => {
                 </Button>
               </Link>
             </Box>
+          )} */}
+          {LoginUser?.isAdmin && (
+            <Box pr={4}>
+              {isUserManagementPage ? ( // 管理画面であればユーザー登録ボタンを表示
+                <Link onClick={onClickSignUp}>
+                  <Button leftIcon={<AddIcon />} colorScheme="blue" size="md">
+                    ユーザー登録
+                  </Button>
+                </Link>
+              ) : (
+                <Link onClick={onClickUserManagement}>
+                  <Button colorScheme="orange" size="md">
+                    ユーザー管理
+                  </Button>
+                </Link>
+              )}
+            </Box>
           )}
           <Box pr={4}>
-            <Link onClick={onClickUpload}>
-              <Button leftIcon={<AddIcon />} colorScheme="blue" size="md">
-                図面登録
-              </Button>
-            </Link>
+            {!isUserManagementPage && ( // 管理画面でなければ図面登録ボタンを表示
+              <Link onClick={onClickUpload}>
+                <Button leftIcon={<AddIcon />} colorScheme="blue" size="md">
+                  図面登録
+                </Button>
+              </Link>
+            )}
           </Box>
           <Box pr={4}>
             <Link onClick={onClickRoute}>
