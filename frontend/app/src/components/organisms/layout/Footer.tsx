@@ -10,7 +10,7 @@ export const Footer: FC = memo(() => {
 
   return (
     <>
-      <Flex as="footer" bg="teal.500" color="gray.50" align="center" justify="space-between" padding={{ base: 3, md: 5 }}>
+      <Flex as="footer" bg="gray.100" color="gray.800" align="center" justify="space-between" padding={{ base: 3, md: 5 }}>
         <Stack
           maxW="2x1"
           marginInline="auto"
@@ -20,11 +20,11 @@ export const Footer: FC = memo(() => {
           direction={{ base: 'column', md: 'row' }}
         >
           <Flex align="center" fontSize="sm" flexGrow={2}>
-            <Box pr={4}>
+            <Box pr={4} color="blue.500">
               <Link onClick={onClickPrivacyPolicy}>プライバシーポリシー</Link>
             </Box>
 
-            <Box pr={4}>
+            <Box pr={4} color="blue.500">
               <Link onClick={onClickTermsOfUse}>利用規約</Link>
             </Box>
           </Flex>
