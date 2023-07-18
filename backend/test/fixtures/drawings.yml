@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  drawing_number: MyString
+  product_number: MyString
+  product_name: MyString
+  destination: MyString
+  facility: MyString
+  part_class: MyString
+  part_name: MyString
+
+two:
+  drawing_number: MyString
+  product_number: MyString
+  product_name: MyString
+  destination: MyString
+  facility: MyString
+  part_class: MyString
+  part_name: MyString
