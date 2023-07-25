@@ -21,7 +21,7 @@ export const Home: FC = memo(() => {
   const { LoginUser } = useLoginUser();
 
   // useEffect(() => getUsers, [getUsers]);
-  useEffect(() => getDrawingVersions, [getDrawingVersions]);
+  useEffect(() => getDrawingVersions(), [getDrawingVersions]);
 
   const onClickDrawing = useCallback(
     (id: number) => {
@@ -42,27 +42,26 @@ export const Home: FC = memo(() => {
         </Center>
       ) : (
         <Wrap p={{ base: 4, md: 10 }}>
-          {/* 下記userの数が10件なので、10件分表示されている */}
-          {drawingVersions.map((drawingVersions) => (
-            <WrapItem key={drawingVersions.id} mx="auto">
-              <DrawingCard
-                id={drawingVersions.drawing.id}
-                imageUrl="https://source.unsplash.com/random"
-                // fullName={user.username}
-                // userName={user.name}
-                drawing_number={drawingVersions.drawing.drawing_number}
-                product_number={drawingVersions.drawing.product_number}
-                product_name={drawingVersions.drawing.product_name}
-                destination={drawingVersions.drawing.destination}
-                facility={drawingVersions.drawing.facility}
-                part_class={drawingVersions.drawing.part_class}
-                part_name={drawingVersions.drawing.part_name}
-                description={drawingVersions.description}
-                version_number={drawingVersions.version_number}
-                onClick={onClickDrawing}
-              />
-            </WrapItem>
-          ))}
+          {drawingVersions.map((drawingVersion) =>
+            drawingVersion.drawing ? (
+              <WrapItem key={drawingVersion.id} mx="auto">
+                <DrawingCard
+                  id={drawingVersion.drawing.id}
+                  imageUrl="https://source.unsplash.com/random"
+                  drawing_number={drawingVersion.drawing.drawing_number}
+                  product_number={drawingVersion.drawing.product_number}
+                  product_name={drawingVersion.drawing.product_name}
+                  destination={drawingVersion.drawing.destination}
+                  facility={drawingVersion.drawing.facility}
+                  part_class={drawingVersion.drawing.part_class}
+                  part_name={drawingVersion.drawing.part_name}
+                  description={drawingVersion.description}
+                  version_number={drawingVersion.version_number}
+                  onClick={onClickDrawing}
+                />
+              </WrapItem>
+            ) : null
+          )}
         </Wrap>
       )}
       <DrawingDetailModal drawingVersion={selectedDrawing} isOpen={isOpen} isAdmin={LoginUser?.isAdmin} onClose={onClose} />
