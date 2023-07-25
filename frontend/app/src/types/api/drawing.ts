@@ -14,7 +14,8 @@ export type DrawingVersion = {
   id: number;
   drawing_id: number;
   description: string;
-  file_path: string;
+  file: File; // 実際にアップロードするファイルのデータを保存するためのフィールド
+  file_path: string; // サーバから受け取ったファイルパスを保存するためのフィールド
   version_number: string;
   drawing: Drawing;
 };
