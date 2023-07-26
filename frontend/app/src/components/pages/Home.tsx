@@ -1,5 +1,5 @@
-import React, { memo, FC, useEffect, useCallback } from 'react';
-import { Center, Spinner, useDisclosure, Wrap, WrapItem } from '@chakra-ui/react';
+import React, { memo, FC, useEffect, useCallback, useState } from 'react';
+import { Box, Center, Flex, Spinner, useDisclosure, Wrap, WrapItem } from '@chakra-ui/react';
 
 // import { useAllUsers } from '../../hooks/useAllUsers';
 // import { useSelectUser } from '../../hooks/useSelectUser';
@@ -11,6 +11,7 @@ import { useLoginUser } from '../../providers/LoginUserProvider';
 import { DrawingCard } from '../organisms/drawing/DrawingCard';
 import { DrawingDetailModal } from '../organisms/drawing/DrawingDetailModal';
 import { MenuSearch } from '../molecules/MenuSearch';
+import { PrimaryButton } from '../atoms/button/PrimaryButton';
 
 export const Home: FC = memo(() => {
   // const { getUsers, users, loading } = useAllUsers();
@@ -20,8 +21,20 @@ export const Home: FC = memo(() => {
   const { getDrawingVersions, drawingVersions, loading } = useAllDrawingVersions();
   const { LoginUser } = useLoginUser();
 
+  //input
+  const [drawingNumber, setDrawingNumber] = useState<string | null>(null);
+  const [productNumber, setProductNumber] = useState<string | null>(null);
+  const [versionNumber, setVersionNumber] = useState<string | null>(null);
+  const [partName, setPartName] = useState<string | null>(null);
+  //select
+  const [productName, setProductName] = useState<string | null>(null);
+  const [destination, setDestination] = useState<string | null>(null);
+  const [facility, setFacility] = useState<string | null>(null);
+  const [partClass, setPartClass] = useState<string | null>(null);
+
+  const [sortOrder, setSortOrder] = useState('desc');
   // useEffect(() => getUsers, [getUsers]);
-  useEffect(() => getDrawingVersions(), [getDrawingVersions]);
+  useEffect(() => getDrawingVersions(sortOrder), [getDrawingVersions, sortOrder]);
 
   const onClickDrawing = useCallback(
     (id: number) => {
@@ -32,9 +45,32 @@ export const Home: FC = memo(() => {
 
   return (
     <>
-      {/* -------------------- */}
-      <MenuSearch />
-      {/* -------------------- */}
+      <MenuSearch
+        drawingNumber={drawingNumber}
+        productNumber={productNumber}
+        versionNumber={versionNumber}
+        partName={partName}
+        productName={productName}
+        destination={destination}
+        facility={facility}
+        partClass={partClass}
+        onDrawingNumberChange={setDrawingNumber}
+        onProductNumberChange={setProductNumber}
+        onVersionNumberChange={setVersionNumber}
+        onPartNameChange={setPartName}
+        onProductNameChange={setProductName}
+        onDestinationChange={setDestination}
+        onFacilityChange={setFacility}
+        onPartClassChange={setPartClass}
+      />
+
+      <Box>
+        <Flex justifyContent="end" pr={8}>
+          <PrimaryButton bgColor="teal.500" textColor="white" hoverOpacity={0.8} onClick={() => setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')}>
+            {sortOrder === 'desc' ? '昇順' : '降順'}
+          </PrimaryButton>
+        </Flex>
+      </Box>
 
       {loading ? (
         <Center h="100vh">
@@ -42,8 +78,26 @@ export const Home: FC = memo(() => {
         </Center>
       ) : (
         <Wrap p={{ base: 4, md: 10 }}>
-          {drawingVersions.map((drawingVersion) =>
-            drawingVersion.drawing ? (
+          {drawingVersions
+            .filter(
+              (dv) =>
+                (!drawingNumber || dv.drawing.drawing_number === drawingNumber) &&
+                (!productNumber || dv.drawing.product_number === productNumber) &&
+                (!versionNumber || dv.version_number === versionNumber) &&
+                (!partName || dv.drawing.part_name === partName) &&
+                (!productName || dv.drawing.product_name === productName) &&
+                (!destination || dv.drawing.destination === destination) &&
+                (!facility || dv.drawing.facility === facility) &&
+                (!partClass || dv.drawing.part_class === partClass)
+            )
+            .sort((a, b) => {
+              if (sortOrder === 'desc') {
+                return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
+              } else {
+                return new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime();
+              }
+            })
+            .map((drawingVersion) => (
               <WrapItem key={drawingVersion.id} mx="auto">
                 <DrawingCard
                   id={drawingVersion.drawing.id}
@@ -60,8 +114,7 @@ export const Home: FC = memo(() => {
                   onClick={onClickDrawing}
                 />
               </WrapItem>
-            ) : null
-          )}
+            ))}
         </Wrap>
       )}
       <DrawingDetailModal drawingVersion={selectedDrawing} isOpen={isOpen} isAdmin={LoginUser?.isAdmin} onClose={onClose} />

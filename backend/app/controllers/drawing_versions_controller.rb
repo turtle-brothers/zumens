@@ -3,7 +3,8 @@ class DrawingVersionsController < ApplicationController
 
     # GET /drawing_versions
     def index
-      @drawing_versions = DrawingVersion.all
+      # @drawing_versions = DrawingVersion.all
+      @drawing_versions = DrawingVersion.order(created_at: params[:sort_order] || :desc)
       render json: @drawing_versions, each_serializer: DrawingVersionSerializer
     end
 

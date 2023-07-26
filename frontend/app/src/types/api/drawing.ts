@@ -18,4 +18,6 @@ export type DrawingVersion = {
   file_path: string; // サーバから受け取ったファイルパスを保存するためのフィールド
   version_number: string;
   drawing: Drawing;
+  // created_at: Date;
+  updated_at: Date;
 };
