@@ -1,5 +1,7 @@
 import React, { ChangeEvent, memo, useEffect, useState, FC } from 'react';
 import {
+  Box,
+  Flex,
   FormControl,
   FormLabel,
   Input,
@@ -13,19 +15,34 @@ import {
   Stack,
 } from '@chakra-ui/react';
 
-import { DrawingVersion } from '../../../types/api/drawing';
+import { DrawingVersion, Drawing } from '../../../types/api/drawing';
 import { PrimaryButton } from '../../atoms/button/PrimaryButton';
+import { useAllDrawingVersions } from '../../../hooks/useAllDrawings';
+import { useUpdate } from '../../../hooks/useUpdate';
+//import { useNavigate } from 'react-router-dom';
 
 type Props = {
-  // user: User | undefined;
   drawingVersion: DrawingVersion | null;
   isOpen: boolean;
   isAdmin?: boolean;
   onClose: () => void;
+  onDelete: (id: number | undefined) => void;
 };
 
 export const DrawingDetailModal: FC<Props> = memo((props) => {
-  const { drawingVersion, isOpen, onClose, isAdmin = false } = props;
+  const { drawingVersion, isOpen, onClose, isAdmin = false, onDelete } = props;
+
+  //const navigate = useNavigate();
+
+  const { getDrawingVersions } = useAllDrawingVersions();
+  const { update } = useUpdate(() => getDrawingVersions('desc'));
+  // const { update } = useUpdate();
+
+  const onClickDelete = () => {
+    if (drawingVersion) {
+      onDelete(drawingVersion.id);
+    }
+  };
 
   const [drawing_number, setDrawingNumber] = useState('');
   const [product_number, setProductNumber] = useState('');
@@ -49,26 +66,152 @@ export const DrawingDetailModal: FC<Props> = memo((props) => {
     setVersionNumber(drawingVersion?.version_number ?? '');
   }, [drawingVersion]);
 
-  const onChangeDrawingNumber = (e: ChangeEvent<HTMLInputElement>) => setDrawingNumber(e.target.value);
-  const onChangeProductNumber = (e: ChangeEvent<HTMLInputElement>) => setProductNumber(e.target.value);
-  const onChangeProductName = (e: ChangeEvent<HTMLInputElement>) => setProductName(e.target.value);
-  const onChangeDestination = (e: ChangeEvent<HTMLInputElement>) => setDestination(e.target.value);
-  const onChangeFacility = (e: ChangeEvent<HTMLInputElement>) => setFacility(e.target.value);
-  const onChangePartClass = (e: ChangeEvent<HTMLInputElement>) => setPartClass(e.target.value);
-  const onChangePartName = (e: ChangeEvent<HTMLInputElement>) => setPartName(e.target.value);
-  const onChangeDescription = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.target.value);
-  const onChangeVersionNumber = (e: ChangeEvent<HTMLInputElement>) => setVersionNumber(e.target.value);
+  // 初期値を保存するための新しい状態変数を追加
+  const [initialDrawingNumber, setInitialDrawingNumber] = useState('');
+  const [initialProductNumber, setInitialProductNumber] = useState('');
+  const [initialProductName, setInitialProductName] = useState('');
+  const [initialDestination, setInitialDestination] = useState('');
+  const [initialFacility, setInitialFacility] = useState('');
+  const [initialPartClass, setInitialPartClass] = useState('');
+  const [initialPartName, setInitialPartName] = useState('');
+  const [initialDescription, setInitialDescription] = useState('');
+  const [initialVersionNumber, setInitialVersionNumber] = useState('');
 
+  // 更新が必要かどうかを追跡するための新しい状態変数を追加
+  const [isDrawingUpdateNeeded, setDrawingUpdateNeeded] = useState(false);
+  const [isDrawingVersionUpdateNeeded, setDrawingVersionUpdateNeeded] = useState(false);
+
+  useEffect(() => {
+    setInitialDrawingNumber(drawingVersion?.drawing.drawing_number ?? '');
+    setInitialProductNumber(drawingVersion?.drawing.product_number ?? '');
+    setInitialProductName(drawingVersion?.drawing.product_name ?? '');
+    setInitialDestination(drawingVersion?.drawing.destination ?? '');
+    setInitialFacility(drawingVersion?.drawing.facility ?? '');
+    setInitialPartClass(drawingVersion?.drawing.part_class ?? '');
+    setInitialPartName(drawingVersion?.drawing.part_name ?? '');
+    setInitialDescription(drawingVersion?.description ?? '');
+    setInitialVersionNumber(drawingVersion?.version_number ?? '');
+  }, [drawingVersion]);
+
+  //フィールド毎に初期値を保存し、値が変更されたかどうか確認
+  const onChangeDrawingNumber = (event: ChangeEvent<HTMLInputElement>) => {
+    const newDrawingNumber = event.target.value;
+    setDrawingNumber(newDrawingNumber);
+    if (initialProductNumber !== newDrawingNumber) {
+      setDrawingUpdateNeeded(true); // Drawingの更新が必要であることを示すフラグを立てる
+    }
+  };
+  const onChangeProductNumber = (event: ChangeEvent<HTMLInputElement>) => {
+    const newProductNumber = event.target.value;
+    setProductNumber(newProductNumber);
+    if (initialDrawingNumber !== newProductNumber) {
+      setDrawingUpdateNeeded(true);
+    }
+  };
+
+  const onChangeProductName = (event: ChangeEvent<HTMLInputElement>) => {
+    const newProductName = event.target.value;
+    setProductName(newProductName);
+    if (initialProductName !== newProductName) {
+      setDrawingUpdateNeeded(true);
+    }
+  };
+
+  const onChangeDestination = (event: ChangeEvent<HTMLInputElement>) => {
+    const newDestination = event.target.value;
+    setDestination(newDestination);
+    if (initialDestination !== newDestination) {
+      setDrawingUpdateNeeded(true);
+    }
+  };
+
+  const onChangeFacility = (event: ChangeEvent<HTMLInputElement>) => {
+    const newFacility = event.target.value;
+    setFacility(newFacility);
+    if (initialFacility !== newFacility) {
+      setDrawingUpdateNeeded(true);
+    }
+  };
+  const onChangePartClass = (event: ChangeEvent<HTMLInputElement>) => {
+    const newPartClass = event.target.value;
+    setPartClass(newPartClass);
+    if (initialPartClass !== newPartClass) {
+      setDrawingUpdateNeeded(true);
+    }
+  };
+  const onChangePartName = (event: ChangeEvent<HTMLInputElement>) => {
+    const newPartName = event.target.value;
+    setPartName(newPartName);
+    if (initialPartName !== newPartName) {
+      setDrawingUpdateNeeded(true);
+    }
+  };
+  const onChangeDescription = (event: ChangeEvent<HTMLInputElement>) => {
+    const newDescription = event.target.value;
+    setDescription(newDescription);
+    if (initialDescription !== newDescription) {
+      setDrawingVersionUpdateNeeded(true); // DrawingVersionの更新が必要であることを示すフラグを立てる
+    }
+  };
+  const onChangeVersionNumber = (event: ChangeEvent<HTMLInputElement>) => {
+    const newVersionNumber = event.target.value;
+    setVersionNumber(newVersionNumber);
+    if (initialVersionNumber !== newVersionNumber) {
+      setDrawingVersionUpdateNeeded(true);
+    }
+  };
+
+  let updatedDrawing: Partial<Drawing> = {};
+  let updatedVersion: Partial<DrawingVersion> = {};
+
+  // もし変更されているなら、対応する更新フラグを立てる
   const onClickUpdate = () => {
-    console.log(drawing_number);
-    console.log(product_number);
-    console.log(product_name);
-    console.log(destination);
-    console.log(facility);
-    console.log(part_class);
-    console.log(part_name);
-    console.log(description);
-    console.log(version_number);
+    if (drawingVersion) {
+      if (isDrawingUpdateNeeded) {
+        updatedDrawing = {
+          id: drawingVersion.drawing.id,
+          drawing_number: drawing_number,
+          product_number: product_number,
+          product_name: product_name,
+          destination: destination,
+          facility: facility,
+          part_class: part_class,
+          part_name: part_name,
+        };
+      }
+
+      if (isDrawingVersionUpdateNeeded) {
+        updatedVersion = {
+          id: drawingVersion.id,
+          drawing_id: drawingVersion.drawing.id,
+          description: description,
+          version_number: version_number,
+        };
+      } else {
+        updatedVersion = {
+          id: drawingVersion.id,
+          drawing_id: drawingVersion.drawing.id,
+          description: description,
+          version_number: version_number,
+        };
+      }
+
+      //undefined防止
+      //idプロパティ以外にも何かしらのプロパティを持っているかどうか
+      console.log(updatedDrawing);
+      console.log(updatedVersion);
+      if ((Object.keys(updatedDrawing).length > 1 || Object.keys(updatedVersion).length > 2) && drawingVersion) {
+        update({ drawing: updatedDrawing, version: updatedVersion }).then(() => {
+          // console.log('updated!');
+          setTimeout(() => {
+            onClose();
+          }, 700);
+          // onClose(); // モーダルを閉じる
+          // navigate('/home'); // ログインページへリダイレクト;  // ホームにリダイレクトする
+          getDrawingVersions('desc');
+        });
+      }
+    }
   };
 
   return (
@@ -122,15 +265,20 @@ export const DrawingDetailModal: FC<Props> = memo((props) => {
               <FormLabel>図面詳細</FormLabel>
               <Input value={description} isReadOnly={!isAdmin} onChange={onChangeDescription} />
             </FormControl>
-            {/* <FormControl>
-              <FormLabel>TEL</FormLabel>
-              <Input type="tel" value={phone} isReadOnly={!isAdmin} onChange={onChangePhone} />
-            </FormControl> */}
           </Stack>
         </ModalBody>
         {isAdmin && (
           <ModalFooter>
-            <PrimaryButton onClick={onClickUpdate}>更新</PrimaryButton>
+            <Flex align="center" justify="space-between">
+              <Box pl={4}>
+                <PrimaryButton onClick={onClickUpdate}>更新</PrimaryButton>
+              </Box>
+              <Box pl={4}>
+                <PrimaryButton bgColor="red" textColor="white" hoverOpacity={0.8} onClick={onClickDelete}>
+                  削除
+                </PrimaryButton>
+              </Box>
+            </Flex>
           </ModalFooter>
         )}
       </ModalContent>

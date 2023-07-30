@@ -8,6 +8,7 @@ import { useSelectDrawing } from '../../hooks/useSelectDrawing';
 import { useLoginUser } from '../../providers/LoginUserProvider';
 // import { UserCard } from '../organisms/user/UserCard';
 // import { UserDetailModal } from '../organisms/user/UserDetailModal';
+import { useDelete } from '../../hooks/useDelete';
 import { DrawingCard } from '../organisms/drawing/DrawingCard';
 import { DrawingDetailModal } from '../organisms/drawing/DrawingDetailModal';
 import { MenuSearch } from '../molecules/MenuSearch';
@@ -20,6 +21,7 @@ export const Home: FC = memo(() => {
   const { onSlectDrawing, selectedDrawing } = useSelectDrawing();
   const { getDrawingVersions, drawingVersions, loading } = useAllDrawingVersions();
   const { LoginUser } = useLoginUser();
+  const { deleteItem } = useDelete();
 
   //input
   const [drawingNumber, setDrawingNumber] = useState<string | null>(null);
@@ -41,6 +43,18 @@ export const Home: FC = memo(() => {
       onSlectDrawing({ id, drawingVersions, onOpen });
     },
     [onOpen, onSlectDrawing, drawingVersions]
+  );
+
+  const onDelete = useCallback(
+    async (id: number | undefined) => {
+      if (!id) {
+        console.error('Invalid drawing ID: ', id);
+        return;
+      }
+      await deleteItem(id);
+      onClose();
+    },
+    [deleteItem, onClose]
   );
 
   return (
@@ -117,7 +131,7 @@ export const Home: FC = memo(() => {
             ))}
         </Wrap>
       )}
-      <DrawingDetailModal drawingVersion={selectedDrawing} isOpen={isOpen} isAdmin={LoginUser?.isAdmin} onClose={onClose} />
+      <DrawingDetailModal drawingVersion={selectedDrawing} isOpen={isOpen} isAdmin={LoginUser?.isAdmin} onClose={onClose} onDelete={onDelete} />
     </>
   );
 });

@@ -9,6 +9,7 @@ class DrawingVersionSerializer < ActiveModel::Serializer
 
   def file_path_url
     if object.file_path.attached?
+      #[ip addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}']をWSL2で実行しIPアドレス確認する
       rails_blob_url(object.file_path, host: '172.21.23.89') #172.21.23.89は再起動ごとに変更される
     end
   end
