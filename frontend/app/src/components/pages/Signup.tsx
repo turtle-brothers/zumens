@@ -6,7 +6,7 @@ import { PrimaryButton } from '../atoms/button/PrimaryButton';
 import { useRegister } from '../../hooks/useRegister';
 
 export const SignUp: FC = memo(() => {
-  const { signup, loading } = useRegister();
+  const { uploadUser: signup, loading } = useRegister();
   const [userId, setuserId] = useState('');
   const [password, setPassword] = useState('');
   const [privacyPolicy, setPrivacyPolicy] = useState(false);
@@ -18,7 +18,7 @@ export const SignUp: FC = memo(() => {
 
   const onClickSignUp = () => {
     if (userId !== '' && password !== '' && privacyPolicy && termsOfUse) {
-      signup(userId, password);
+      signup({ username: userId, password, role: 'User' });
     }
   };
 

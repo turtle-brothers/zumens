@@ -18,7 +18,7 @@ export const Header: FC = memo(() => {
   const onClickHome = () => navigate('/home');
   const onClickUpload = () => navigate('/home/upload');
   const onClickUserManagement = () => navigate('/home/user_management');
-  const onClickSignUp = () => navigate('/home/signup');
+  const onClickSignUp = () => navigate('/home/user_management_upload');
 
   const isUserManagementPage = location.pathname === '/home/user_management';
 

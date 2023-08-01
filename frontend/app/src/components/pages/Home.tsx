@@ -20,7 +20,7 @@ export const Home: FC = memo(() => {
   // const { onSlectUser, selectedUser } = useSelectUser();
   const { onSlectDrawing, selectedDrawing } = useSelectDrawing();
   const { getDrawingVersions, drawingVersions, loading } = useAllDrawingVersions();
-  const { LoginUser } = useLoginUser();
+  const { LoginUser, fetchLoginUser } = useLoginUser();
   const { deleteItem } = useDelete();
 
   //input
@@ -56,6 +56,11 @@ export const Home: FC = memo(() => {
     },
     [deleteItem, onClose]
   );
+
+  // Homeコンポーネントがマウントされたときにログインユーザー情報を取得します
+  useEffect(() => {
+    fetchLoginUser();
+  }, []);
 
   return (
     <>
@@ -112,7 +117,8 @@ export const Home: FC = memo(() => {
               }
             })
             .map((drawingVersion) => (
-              <WrapItem key={drawingVersion.id} mx="auto">
+              <WrapItem key={`${drawingVersion.drawing.drawing_number}-${drawingVersion.version_number}`} mx="auto">
+                {/* <WrapItem key={drawingVersion.id} mx="auto"> */}
                 <DrawingCard
                   id={drawingVersion.drawing.id}
                   imageUrl="https://source.unsplash.com/random"

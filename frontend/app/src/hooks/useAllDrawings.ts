@@ -38,7 +38,8 @@ export const useAllDrawingVersions = () => {
           });
           setDrawingVersions(mergedDrawingVersions);
         })
-        .catch(() => {
+        .catch((err) => {
+          console.error(err);
           showMessage({ title: '図面の取得に失敗しました', status: 'error' });
         })
         .finally(() => {
