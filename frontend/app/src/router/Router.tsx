@@ -5,6 +5,7 @@ import { Home } from '../components/pages/Home';
 import { Login } from '../components/pages/Login';
 import { SignUp } from '../components/pages/Signup';
 import { UserManagement } from '../components/pages/UserManagement';
+import { UserUpload } from '../components/pages/UserUpload';
 import { Upload } from '../components/pages/Upload';
 import { PrivacyPolicy } from '../components/pages/PrivacyPolicy';
 import { TermsOfUse } from '../components/pages/TermsOfUse';
@@ -35,6 +36,16 @@ export const Router: FC = memo(() => {
             <HeaderLayout>
               <FooterLayout>
                 <UserManagement />
+              </FooterLayout>
+            </HeaderLayout>
+          }
+        />
+        <Route
+          path="/home/user_management_upload"
+          element={
+            <HeaderLayout>
+              <FooterLayout>
+                <UserUpload />
               </FooterLayout>
             </HeaderLayout>
           }

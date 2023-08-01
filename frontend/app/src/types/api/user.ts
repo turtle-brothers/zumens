@@ -20,4 +20,6 @@ export type User = {
     catchPhrase: string;
     bs: string;
   };
+  role: string;
+  admin: string;
 };
