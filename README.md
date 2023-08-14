@@ -1,4 +1,4 @@
-﻿## ■ 図面管理アプリ Zumens
+## ■ 図面管理アプリ Zumens
 ![top](https://github.com/turtle-brothers/zumens/assets/62471053/e76f7842-ba9e-4c82-bad5-35b62a608e96)
 
 ## ■ アプリURL
